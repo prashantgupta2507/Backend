@@ -2,10 +2,10 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const connection = require('./Schemas/Connection')
-const { createUser, createOtp, createAddress, createCategory, createProduct, createOrder, createSubOrder } = require('./Schemas/Tables')
+const { createUser, createAddress, createCategory, createProduct, createOrder, createSubOrder } = require('./Schemas/Tables')
 
 const app = express()
-const port = process.env.PORT;
+const port = process.env.PORT | 5500;
 
 connection.connect()
 
@@ -13,7 +13,6 @@ connection.connect()
 app.use(cors())
 app.use(express.json())
 app.use(createUser)
-app.use(createOtp)
 app.use(createAddress)
 app.use(createCategory)
 app.use(createProduct)
@@ -21,9 +20,7 @@ app.use(createOrder)
 app.use(createSubOrder)
 
 //User Account related routes
-app.use('/api/auth/createUser', require('./Auth/SignupStep1'))
-app.use('/api/auth/createUser', require('./Auth/OtpVerification'))
-app.use('/api/auth/createUser', require('./Auth/SignupStep2'))
+app.use('/api/auth', require('./Auth/Register'))
 app.use('/api/auth', require('./Auth/Login'))
 
 //admin related routes
