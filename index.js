@@ -5,7 +5,7 @@ const connection = require('./Schemas/Connection')
 const { createUser, createAddress, createCategory, createProduct, createOrder, createSubOrder } = require('./Schemas/Tables')
 
 const app = express()
-const port = process.env.PORT | 5500;
+const port = process.env.PORT || 5500;
 
 connection.connect()
 
