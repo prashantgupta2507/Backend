@@ -2,7 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const connection = require('./Schemas/Connection')
-const { createUser, createAddress, createCategory, createProduct, createOrder, createSubOrder } = require('./Schemas/Tables')
+const { createUser, createAddress, createCategory, createProduct, createOrder, createSubOrder, creatOtp } = require('./Schemas/Tables')
+const deleteOTP = require('./schedular/DeleteExpiredOtp')
 
 const app = express()
 const port = process.env.PORT || 5500;
@@ -18,10 +19,11 @@ app.use(createCategory)
 app.use(createProduct)
 app.use(createOrder)
 app.use(createSubOrder)
+app.use(creatOtp)
 
 //User Account related routes
-app.use('/api/auth', require('./Auth/Register'))
 app.use('/api/auth', require('./Auth/Login'))
+app.use('/api/otp', require('./Auth/Otp'))
 
 //admin related routes
 app.use('/api/admin', require('./Admin/fetchAllUsers'))
@@ -47,4 +49,7 @@ app.use('/api/user', require('./User/deleteAddress'))
 app.use('/api/order', require('./orders/addOrder'))
 app.use('/api/order', require('./orders/getOrders'))
 
-app.listen(port, () => console.log(`Server started at port ${port}`))
+app.listen(port, () => {
+    console.log(`Server started at port ${port}`)
+    deleteOTP()
+})

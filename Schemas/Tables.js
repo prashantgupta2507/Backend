@@ -42,4 +42,11 @@ const createSubOrder = (req, res, next) => {
     })
 }
 
-module.exports = { createUser, createAddress, createCategory, createProduct, createOrder, createSubOrder };
+const creatOtp = (req, res, next) => {
+    connection.query('CREATE TABLE if not exists OTP (otp_id int primary key auto_increment, otp_value char(6) not null, email varchar(30) unique not null,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, is_verified boolean DEFAULT FALSE)', (err)=>{
+        if(err) throw err
+        next()
+    })
+}
+
+module.exports = { createUser, createAddress, createCategory, createProduct, createOrder, createSubOrder, creatOtp };

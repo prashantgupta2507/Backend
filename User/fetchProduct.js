@@ -14,7 +14,7 @@ router.get('/product/:category_name', (req, res) => {
                     return res.status(200).json(rows)
                 })
             } else {
-                return res.status(500).send("Not Found Any Product")
+                return res.status(200).json([])
             }
         })
     } catch (error) {
