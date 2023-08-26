@@ -1,5 +1,6 @@
 const connection = require('./Connection')
 
+
 const createUser = (req, res, next) => {
     connection.query('CREATE TABLE if not exists CUSTOMER (user_id int auto_increment primary key,email varchar(30) unique not null, password varchar(100) not null, first_name varchar(20) not null, last_name varchar(20) not null, admin TINYINT(1) default 0, mobile varchar(15),gender char(1))', function (err) {
         if (err) throw err

@@ -6,7 +6,7 @@ const { createUser, createAddress, createCategory, createProduct, createOrder, c
 const deleteOTP = require('./schedular/DeleteExpiredOtp')
 
 const app = express()
-const port = process.env.PORT || 5500;
+const port = 5500;
 
 connection.connect()
 
@@ -44,6 +44,7 @@ app.use('/api/user', require('./User/updateUserInfo'))
 app.use('/api/user', require('./User/addAddress'))
 app.use('/api/user', require('./User/getAddress'))
 app.use('/api/user', require('./User/deleteAddress'))
+app.use('/api/user', require('./User/test'))
 
 //order related routes
 app.use('/api/order', require('./orders/addOrder'))

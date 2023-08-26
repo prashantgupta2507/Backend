@@ -9,7 +9,7 @@ router.post('/generate', async (req, res) => {
     const { email, fName, lName, reCaptchaValue } = req.body
     try {
         if (await RecaptchaVerify(reCaptchaValue)) {
-            connection.query(`select * from customer where email='${email}'`, (err, result) => {
+            connection.query(`select * from CUSTOMER where email='${email}'`, (err, result) => {
                 if (err) throw err
                 if (result.length !== 0) {
                     return res.status(400).json({ msg: 'User with this email already exists!!' })
